@@ -1,0 +1,479 @@
+/* ============================================================
+   style.css — the look of the portfolio site.
+   One file styles all five pages. Change a value here and
+   every page updates.
+
+   HOW THIS DESIGN WORKS (like the reference you sent):
+   - Dark "pill" navigation bar at the top, with an orange button.
+   - A dark hero with big serif headlines and a fluted-glass pattern.
+   - Cream bands, serif section headlines, and orange accents.
+   - No photos needed: the decorative panels are pure CSS gradients,
+     so the site works offline and loads fast.
+
+   TO CHANGE THE COLORS: edit the six --color lines below.
+   TO CHANGE THE FONTS: edit the two --font lines, and the matching
+   Google Fonts link in each HTML file's <head>.
+   ============================================================ */
+
+:root {
+  --ink: #211a13;        /* Near-black warm brown: nav, hero, footer */
+  --ink-soft: #4a4237;   /* Softer brown: body text on cream */
+  --cream: #f6f1e8;      /* Page background */
+  --cream-2: #e9e1d0;    /* Stats band background */
+  --paper: #fbf8f1;      /* Card background */
+  --accent: #f2a007;     /* Orange: buttons and highlights */
+  --accent-hover: #d98d00;
+  --muted: #6f6659;      /* Gray-brown: small labels */
+  --line: #d9cfba;       /* Hairline borders */
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;  /* Headlines */
+  --sans: "Inter", Arial, Helvetica, sans-serif;           /* Body text */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+}
+
+a { color: var(--ink); }
+img { max-width: 100%; }
+
+/* ---------- Top navigation (the dark pill) ---------- */
+
+.nav-wrap {
+  position: sticky;      /* Stays visible while scrolling */
+  top: 12px;
+  z-index: 50;
+  padding: 0 16px;
+}
+
+nav {
+  max-width: 1080px;
+  margin: 12px auto 0;
+  background: var(--ink);
+  color: #f6f1e8;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 10px 12px 10px 20px;
+  box-shadow: 0 10px 30px rgba(33, 26, 19, 0.25);
+}
+
+.brand {
+  font-family: var(--serif);
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  margin-left: auto;
+}
+
+.nav-links a {
+  color: #e8e0d2;
+  text-decoration: none;
+  font-size: 0.95em;
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.nav-links a:hover { color: #fff; }
+
+/* The current page's tab gets an orange underline. Each HTML file
+   marks its own link with class="active". */
+.nav-links a.active {
+  color: #fff;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.btn:hover { background: var(--accent-hover); }
+
+.btn-ghost {
+  display: inline-block;
+  color: #f6f1e8;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 9px 4px;
+  border-bottom: 1px solid rgba(246, 241, 232, 0.5);
+}
+
+.btn-ghost:hover { border-bottom-color: #f6f1e8; }
+
+/* ---------- Hero (home page, dark with fluted-glass pattern) ---------- */
+
+.hero {
+  /* Layered background: dark overlay + vertical fluted lines + warm glow.
+     No image file needed. */
+  background:
+    linear-gradient(100deg, rgba(33, 26, 19, 0.88) 0%, rgba(33, 26, 19, 0.55) 55%, rgba(33, 26, 19, 0.35) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0 2px, transparent 2px 14px),
+    radial-gradient(1200px 500px at 75% 20%, #6b4a22 0%, #3a2c1c 45%, #211a13 100%);
+  color: #f6f1e8;
+  /* Angled cut on the bottom-right corner, like the reference. */
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 56px), calc(100% - 160px) 100%, 0 100%);
+  margin-top: -64px;     /* Slides up behind the floating nav pill */
+  padding: 150px 24px 130px;
+}
+
+.hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Small caps label above a headline. The dot is the orange accent. */
+.eyebrow {
+  font-size: 0.78em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #d8cfba;
+  margin: 0 0 18px;
+}
+
+.eyebrow::before {
+  content: "● ";
+  color: var(--accent);
+  font-size: 0.7em;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  margin: 0 0 20px;
+  max-width: 12ch;
+}
+
+.hero p.lead {
+  font-size: 1.08em;
+  color: #e8e0d2;
+  max-width: 52ch;
+  margin: 0 0 30px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Stats band (cream strip under the hero) ---------- */
+
+.stats { background: var(--cream-2); }
+
+.stats-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+  gap: 28px;
+  padding: 40px 24px;
+  align-items: start;
+}
+
+.stats-title {
+  font-family: var(--serif);
+  font-size: 1.5em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.stat { border-left: 1px solid #c9bda1; padding-left: 20px; }
+
+.stat .num {
+  font-family: var(--serif);
+  font-size: 2.1em;
+  line-height: 1.1;
+  display: block;
+}
+
+.stat .label {
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-top: 6px;
+}
+
+/* ---------- Page hero (inner pages: smaller dark header) ---------- */
+
+.page-hero {
+  background:
+    linear-gradient(100deg, rgba(33, 26, 19, 0.9) 0%, rgba(33, 26, 19, 0.6) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 14px),
+    radial-gradient(900px 400px at 80% 0%, #54402a 0%, #211a13 70%);
+  color: #f6f1e8;
+  margin-top: -64px;
+  padding: 140px 24px 64px;
+}
+
+.page-hero-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.page-hero h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.08;
+  margin: 0 0 14px;
+  max-width: 16ch;
+}
+
+.page-hero p {
+  color: #e8e0d2;
+  max-width: 60ch;
+  margin: 0;
+  font-size: 1.05em;
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+
+.section + .section { padding-top: 0; }
+
+.section .eyebrow { color: var(--muted); }
+
+h2.display {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  line-height: 1.12;
+  margin: 0 0 18px;
+  max-width: 20ch;
+}
+
+.section p { color: var(--ink-soft); max-width: 62ch; }
+
+/* Two-column layout: text on one side, decorative panel on the other. */
+.split {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* Decorative panel: pure CSS art, no photo needed. Each page can pick
+   a different gradient by adding a second class (see .visual--* below). */
+.visual {
+  min-height: 340px;
+  border-radius: 4px;
+  /* Angled cut on the top-right corner, like the reference. */
+  clip-path: polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%);
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 2px, transparent 2px 16px),
+    linear-gradient(150deg, #7a5a30 0%, #3a2c1c 55%, #211a13 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.visual--data {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 16px),
+    linear-gradient(150deg, #4a5a3a 0%, #2c3626 55%, #211a13 100%);
+}
+
+.visual--community {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 16px),
+    linear-gradient(150deg, #8a6a4a 0%, #4a3626 55%, #211a13 100%);
+}
+
+.visual--light {
+  background:
+    repeating-linear-gradient(90deg, rgba(33, 26, 19, 0.06) 0 2px, transparent 2px 16px),
+    linear-gradient(150deg, #e9e1d0 0%, #d9cfba 60%, #c9bda1 100%);
+}
+
+/* Big faint serif glyph inside the decorative panel. */
+.visual .glyph {
+  font-family: var(--serif);
+  font-size: 9rem;
+  line-height: 1;
+  color: rgba(246, 241, 232, 0.16);
+  position: absolute;
+  right: 24px;
+  bottom: 8px;
+}
+
+.visual--light .glyph { color: rgba(33, 26, 19, 0.14); }
+
+.visual .caption {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  color: #f6f1e8;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  max-width: 22ch;
+}
+
+.visual--light .caption { color: var(--ink); }
+
+/* ---------- Cards ---------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--ink);
+  border-radius: 6px;
+  padding: 26px;
+}
+
+.card h3 {
+  font-family: var(--serif);
+  font-size: 1.45em;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.card p { margin: 0; }
+
+.card .tag {
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Cards that are links (the "start here" cards on the home page). */
+a.card { text-decoration: none; color: var(--ink); display: block; }
+a.card:hover { border-top-color: var(--accent); }
+a.card .more { color: var(--accent-hover); font-weight: 600; }
+
+/* ---------- Lists and details ---------- */
+
+.dates {
+  color: var(--muted);
+  margin-top: -8px;
+  font-size: 0.95em;
+}
+
+h3.role {
+  font-family: var(--serif);
+  font-size: 1.6em;
+  margin: 0 0 10px;
+}
+
+ul.tight { padding-left: 20px; color: var(--ink-soft); }
+ul.tight li { margin-bottom: 8px; }
+
+/* ---------- Skills pills ---------- */
+
+.skills {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skills li {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.92em;
+  color: var(--ink-soft);
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  background: var(--ink);
+  color: #d8cfba;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.footer-name {
+  font-family: var(--serif);
+  font-size: 1.5em;
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+footer p { margin: 0; font-size: 0.95em; }
+
+footer a { color: #f6f1e8; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+.footer-note {
+  font-size: 0.82em;
+  color: #9a9082;
+  margin-top: 8px;
+}
+
+/* ---------- Phones and small screens ---------- */
+
+@media (max-width: 760px) {
+  nav { flex-wrap: wrap; gap: 10px; padding: 12px 16px; }
+  .nav-links {
+    order: 3;
+    margin-left: 0;
+    width: 100%;
+    overflow-x: auto;    /* Tabs scroll sideways instead of wrapping */
+    padding-bottom: 4px;
+  }
+  .hero, .page-hero { margin-top: -118px; padding-top: 170px; }
+  .hero { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 36px), calc(100% - 90px) 100%, 0 100%); }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .stats-title { grid-column: 1 / -1; }
+  .split { grid-template-columns: 1fr; gap: 32px; }
+  .visual { min-height: 240px; }
+  .cards { grid-template-columns: 1fr; }
+  .section { padding: 52px 20px; }
+}
