@@ -191,7 +191,7 @@ nav {
   max-width: 1080px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.25fr 1fr 1fr 1fr;
   gap: 28px;
   padding: 40px 24px;
   align-items: start;
@@ -202,6 +202,7 @@ nav {
   font-size: 1.5em;
   line-height: 1.2;
   margin: 0;
+  grid-row: span 2;
 }
 
 .stat { border-left: 1px solid #c9bda1; padding-left: 20px; }
@@ -471,7 +472,7 @@ footer a:hover { text-decoration: underline; }
   .hero, .page-hero { margin-top: -118px; padding-top: 170px; }
   .hero { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 36px), calc(100% - 90px) 100%, 0 100%); }
   .stats-inner { grid-template-columns: 1fr 1fr; }
-  .stats-title { grid-column: 1 / -1; }
+  .stats-title { grid-column: 1 / -1; grid-row: auto; }
   .split { grid-template-columns: 1fr; gap: 32px; }
   .visual { min-height: 240px; }
   .cards { grid-template-columns: 1fr; }
